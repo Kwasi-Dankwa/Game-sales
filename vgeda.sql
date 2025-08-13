@@ -17,6 +17,12 @@ order by year asc
 
 
 -- GENRE ANALYSIS --
+-- genre count --
+select genre, count(*) as total_genre
+from public.video_game_sales
+group by genre
+order by total_genre desc 
+
 -- top selling genre -- 
 select genre, sum(Global_sales) as total_sales
 from public.video_game_sales
@@ -96,6 +102,48 @@ FROM public.video_game_sales
 GROUP BY Genre;
 
 -- Next Analysis is Market Share --
+-- market share by publisher --
+SELECT 
+    Publisher,
+    ROUND(SUM(Global_Sales), 2) AS total_sales,
+    ROUND(SUM(Global_Sales) / (SELECT SUM(Global_Sales) FROM public.video_game_sales ) * 100, 2) AS market_share_percent
+FROM public.video_game_sales 
+GROUP BY Publisher
+ORDER BY market_share_percent DESC;
+
+-- market share by year --
+SELECT 
+    Year,
+    Publisher,
+    ROUND(SUM(Global_Sales), 2) AS total_sales,
+    ROUND(SUM(Global_Sales) / SUM(SUM(Global_Sales)) OVER (PARTITION BY Year) * 100, 2) AS market_share_percent
+FROM public.video_game_sales 
+GROUP BY Year, Publisher
+ORDER BY Year, market_share_percent DESC;
+
+-- market share of top 3 companies every year since 2010
+WITH yearly_sales AS (
+    SELECT 
+        Year,
+        Publisher,
+        ROUND(SUM(Global_Sales), 2) AS total_sales,
+        ROUND(SUM(Global_Sales) / SUM(SUM(Global_Sales)) OVER (PARTITION BY Year) * 100, 2) AS market_share_percent,
+        RANK() OVER (PARTITION BY Year ORDER BY SUM(Global_Sales) DESC) AS sales_rank
+    FROM public.video_game_sales
+    WHERE Year between 2010 and 2016
+      AND Publisher IS NOT NULL
+    GROUP BY Year, Publisher
+)
+SELECT 
+    Year,
+    Publisher,
+    total_sales,
+    market_share_percent
+FROM yearly_sales
+WHERE sales_rank <= 3
+ORDER BY Year, sales_rank;
+
+
 
 
 
