@@ -118,6 +118,48 @@ where publisher is null;
 ----
 ## 📌 Executive Summary
 
+Context: EDA confirms fluctuating global market share for Nintendo from 2010–2016. Additionally,the most profitable markets for the publisher during that time period are North America, Japan, then Europe. Further insights are needed to diagnose the causes of this and the quality of the data for predictive modelling.
+
+Focus Areas and Outcomes:
+
+* Diagnose drivers of market share swings (titles, platform lifecycle, genre mix).
+
+* Forecast global & regional sales.
+
+* Predict regional performance for genres.
+
+* Recommend levers to stabilize & grow market share.
+
+## 🔍 Business Goals & Questions
+
+Primary Goal: Improve Nintendo’s worldwide market share by prioritizing regions, genres, that maximize ROI.
+
+Key Questions
+
+1. How has Nintendo’s market share evolved annually since 2010, and what explains volatility?
+
+2. Which genres (top 3 annually) drove outsized performance across 2010–2016?
+
+3. Which regions (NA, JP, EU, Other) contribute most to sales, and where are the growth opportunities?
+
+4. What is the forecast for total sales and regional sales over the next 3 years?
+
+5. Given a future title’s attributes (platform, genre), what is its expected regional performance?
+
+6. Which levers (genre mix, portfolio allocation) increase market share?
+
+KPIs
+
+* Global & regional unit sales (M).
+
+* Annual market share (% of global industry sales).
+
+* Title-level first-year sales (k units).
+
+* Genre mix contribution (%) and ROI proxy.
+
+----
+
 
 
 
@@ -139,5 +181,5 @@ Author: Kwasi Dankwa
 Role: Business Analyst
 Nintendo (Portfolio Project)
 Tech: SQL(PostGresAdmin), Python (pandas, scikit-learn), Jupyter, Views, Tableau
-Window: 2010–2016
+Business Window: 2010–2016
 ```
