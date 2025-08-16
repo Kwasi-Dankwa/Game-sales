@@ -138,15 +138,13 @@ Key Questions
 
 1. How has Nintendo’s market share evolved annually since 2010, and what explains volatility?
 
-2. Which genres (top 3 annually) drove outsized performance across 2010–2016?
+2. Which regions (NA, JP, EU, Other) contribute most to sales, and where are the growth opportunities?
 
-3. Which regions (NA, JP, EU, Other) contribute most to sales, and where are the growth opportunities?
+3. What is the forecast for total sales and regional sales over the next 3 years?
 
-4. What is the forecast for total sales and regional sales over the next 3 years?
+4. Given a future title’s attributes (platform, genre), what is its expected regional performance?
 
-5. Given a future title’s attributes (platform, genre), what is its expected regional performance?
-
-6. Which levers (genre mix, portfolio allocation) increase market share?
+5. Which levers (genre mix, portfolio allocation) increase market share?
 
 KPIs
 
@@ -159,6 +157,59 @@ KPIs
 * Genre mix contribution (%) and ROI proxy.
 
 ----
+
+## 📊 INSIGHTS
+
+Based on the exploratory data analysis (EDA) of the video game sales dataset, the following insights regarding Nintendo's performance have been identified:
+
+Significant Presence: Nintendo is a dominant publisher in the dataset. A high number of their titles appear in the top-selling charts, indicating a consistent output of commercially successful games across different platforms.
+
+### Visual (Number of Titles Released
+![numtiitles](visuals/numtitles.png "Mum_titles")
+> The graph shows a fluctuating but generally high number of releases from 2010 to 2015, followed by a sharp decline in 2016. This decline coincides with the end of the Wii U's lifecycle and the lead-up to the launch of the Nintendo Switch in 2017.
+
+
+### Visual (Nintendo Global Market Share (2010-2016))
+![nintms](visuals/nintms.png "Nintendo_Market Share")
+> This graph shows a period of moderate market share from 2010-2011, a peak in 2012-2014, and a dramatic decrease from 2015-2016. This decline reflects possible commercial struggles in game titles or platform. Further analysis will be needed to understand the reason for a sharp decline.
+
+### Visual(Nintendo Global Market Segment (2010 -2016))
+![nintms](visuals/barchart.png "Nintendo_Market Share")
+> The chart clearly indicates that North America was the strongest market for Nintendo during the 2010-2016 period, followed by Japan and then Europe. Other regions contributed a significantly smaller amount to the total sales.
+
+### Visual(Top 3 Companies by Global Market Share (2010 -2016))
+![globalms](visuals/globms.png "Top 3 Companies by Market Share")
+
+Summary of the Data The graph tracks the market share of several major video game publishers and platform holders from 2010 to 2016.
+
+* 2010-2011: Nintendo's market share was relatively stable, hovering around 10%.
+
+* 2012: Nintendo saw a significant and dramatic increase in market share, peaking at over 15%. This was a high point for the company in this period and put them at the top of the charted companies for that year. This spike is consistent with the launch of the Wii U console in late 2012, which initially generated high sales.
+
+* 2013-2014: Nintendo's market share began to decline, dropping from its peak but still remaining competitive at around 14% in 2014.
+
+* 2015-2016: This is the most critical period shown in the graph. Nintendo's market share plummeted, dropping to just over 10% in 2015 and then falling to its lowest point on the chart in 2016 at just over 9%. During this time, rivals like Electronic Arts and Activision saw their market share either increase or remain relatively stable. The chart shows Electronic Arts surpassing Nintendo in 2015 and continuing to grow its lead in 2016.
+
+* The overall trend for Nintendo from 2012 to 2016 is a sharp rise followed by a precipitous decline, which accurately reflects the commercial life cycle of the Wii U console.
+
+
+### Visual(Top 5 Companies by Japanese Market Share (2010 -2016))
+![globalms](visuals/japms.png "Top 3 Companies by Market Share")
+
+* The top 5 publishers by Japanese market share between 2010 and 2016 included Nintendo, Namco Bandai Games, Capcom, Konami Digital Entertainment, Square Enix, Level 5, and Tecmo Koei.
+* Nintendo consistently ranked among the top publishers during the period.
+* The specific publishers within the top 5 and their rankings varied from year to year.
+
+### Visual(Top 5 Companies by Europe Market Share (2010 -2016))
+![globalms](visuals/japms.png "Top 3 Companies by Market Share")
+
+
+
+
+
+
+
+
 
 
 
