@@ -144,8 +144,6 @@ Key Questions
 
 4. Given a future title’s attributes (platform, genre), what is its expected regional performance?
 
-5. Which levers (genre mix, portfolio allocation) increase market share?
-
 KPIs
 
 * Global & regional unit sales (M).
@@ -202,6 +200,144 @@ Summary of the Data The graph tracks the market share of several major video gam
 
 ### Visual(Top 5 Companies by Europe Market Share (2010 -2016))
 ![globalms](visuals/japms.png "Top 3 Companies by Market Share")
+The European market was particularly tough for Nintendo. While they had a brief peak, they were consistently outperformed by EA and Ubisoft. The graph shows EA's market share soaring in Europe from 2014-2016, reaching over 25% while Nintendo's dropped to single digits.
+
+## Recommendations
+1. Strengthen Third-Party and Indie Developer Relationships: The data shows that companies like EA and Activision maintained or increased their market share while Nintendo struggled. These companies' multi-platform blockbusters drove sales on competing consoles.
+* Streamline development: Make it easier for third-party studios to port their games to Nintendo's hardware.
+
+* Attract key franchises: Work with publishers to bring major AAA multi-platform titles to Nintendo's console, which helps to attract a different demographic of gamer.
+
+* Court indie developers: The Switch has been a haven for indie games. By continuing to support and promote smaller studios, Nintendo can create a diverse library of content that appeals to a wide audience.
+
+2. Optimize Regional Strategy, Especially in Europe: The graphs show that Europe was a particularly weak market for Nintendo during this period, with competitors like EA and Ubisoft dominating.
+* Tailored marketing: Develop more targeted marketing campaigns that resonate with European gamers' preferences.
+
+* Localization: Ensure that games are properly localized for different European languages and cultures to expand their appeal.
+
+* Partnerships: Form strategic partnerships with European retailers and distributors to improve visibility and access to their products.
+
+----
+
+# Predictive modelling
+
+The Prophet library was used to forecast Nintendo's global sales for the next three years, based on historical data from 2010 to 2016.
+
+```
+
+# **Q4: Sales Forecast for the next 3 years using Prophet**
+nintendo_df = df[(df['publisher'] == 'Nintendo') & (df['year'].between(2010, 2016))].copy()
+print("\n--- Forecasting Total & Regional Sales for the next 3 years using Prophet ---")
+# Global Sales Forecast
+prophet_df = nintendo_df.groupby('year')['global_sales'].sum().reset_index()
+prophet_df['ds'] = pd.to_datetime(prophet_df['year'].astype(str) + '-12-31')
+prophet_df['y'] = prophet_df['global_sales']
+
+global_model = Prophet(changepoint_prior_scale=0.05, daily_seasonality=False)
+global_model.fit(prophet_df)
+future = global_model.make_future_dataframe(periods=3, freq='Y')
+forecast_global = global_model.predict(future)
+
+# Visualization
+print("\nGlobal Sales Forecast:")
+print(forecast_global[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].tail(3).to_markdown(index=False, numalign="left", stralign="left"))
+global_model.plot(forecast_global)
+plt.title('Global Sales Forecast with Prophet', fontsize=16)
+plt.xlabel('Year')
+plt.ylabel('Global Sales (in millions)')
+plt.show()
+
+```
+
+### Visual
+![globalms](visuals/forecast.png "Global sales forecast")
+
+* Downward Trend: The blue line in the chart represents the model's forecast. It shows a clear and steady decline in sales over the forecast period. This is because the model is primarily fitting a trend line to the decreasing sales data provided (from 2010 to 2016).
+
+* Unrealistic Forecasts: The forecast predicts that Nintendo's global sales will continue to drop, even falling into negative values. This is not a realistic business outcome, as a company cannot have negative sales. This result indicates that the model is not a good fit for this data. Also the wider prediction interval shows the model is uncertain about future sales making it unfit for this data.
+
+### Sales prediction Based on New Titles (Decision Making Forecast)
+
+Another forecasting tool was created to identify to possible future sales that could be made on new titles based on genre and platform.
+
+```
+# **Q5: Predict a new title's regional performance?**
+print("\n--- Predictive Model for New Title Performance (Random Forest Regressor) ---")
+
+# Define features and targets
+features = ['platform', 'genre']
+target_regions = ['na_sales', 'eu_sales', 'jp_sales', 'other_sales']
+
+# Handle categorical features using one-hot encoding
+X = nintendo_df[features]
+X_encoded = pd.get_dummies(X, columns=features, dtype=int)
+y = nintendo_df[target_regions]
+
+# Training a separate model for each target region
+models = {}
+for region in target_regions:
+    y_target = y[region]
+    X_train, X_test, y_train, y_test = train_test_split(X_encoded, y_target, test_size=0.2, random_state=42)
+
+    # Initialize and train the Random Forest model
+    model = RandomForestRegressor(n_estimators=100, random_state=42)
+    model.fit(X_train, y_train)
+    models[region] = model
+
+    # Evaluate the model
+    predictions = model.predict(X_test)
+    mae = mean_absolute_error(y_test, predictions)
+    print(f"Model for {region}: MAE = {mae:.2f} million units")
+
+# --- 4. EXAMPLE PREDICTION FOR A NEW TITLE ---
+print("\n--- Example Prediction for a Hypothetical New Title ---")
+
+# Defining a hypothetical new game's attributes
+new_game_data = {
+    'platform': 'Wii-U',
+    'genre': 'Platform'
+}
+
+# Create a DataFrame for the new game
+new_game_df = pd.DataFrame([new_game_data])
+
+# One-hot encode the new game data, aligning columns with the training data
+new_game_encoded = pd.get_dummies(new_game_df, columns=features, dtype=int)
+new_game_encoded = new_game_encoded.reindex(columns = X_encoded.columns, fill_value=0)
+
+# Make predictions for each region
+predictions = {region: models[region].predict(new_game_encoded)[0] for region in target_regions}
+for region, sales in predictions.items():
+    print(f"Predicted {region} sales: {sales:.2f} million units")
+```
+### Results
+
+```
+--- Predictive Model for New Title Performance (Random Forest Regressor) ---
+Model for na_sales: MAE = 0.70 million units
+Model for eu_sales: MAE = 0.49 million units
+Model for jp_sales: MAE = 0.42 million units
+Model for other_sales: MAE = 0.12 million units
+
+--- Example Prediction for a Hypothetical New Title ---
+Predicted na_sales sales: 1.10 million units
+Predicted eu_sales sales: 0.54 million units
+Predicted jp_sales sales: 0.58 million units
+Predicted other_sales sales: 0.13 million units
+```
+> The MAE scores are relatively low, which is a positive sign. A low MAE suggests that the model's predictions are, on average, close to the actual sales numbers. The model performs best for other_sales and jp_sales, which means it is most accurate at predicting sales in those regions.
+
+In this hypothetical scenario, the predictions suggest that a new Wii-U Platform game would sell best in the North American market, followed by Japan and Europe. The other_sales region is predicted to have the lowest sales, but as noted by the low MAE, the model is most confident in this prediction.
+
+### Recommendations
+* Allocate Marketing Resources: By knowing where a game is likely to perform best, Nintendo can focus its marketing budget on the most promising regions (e.g., North America).
+
+* Identify Market Opportunities: The relatively high predicted sales in the North American market could signal an opportunity for more aggressive expansion or promotional campaigns.
+
+* Inform Product Strategy: The model confirms that a Platform game on the Wii-U is a viable product, providing data-backed insights into future game development and release schedules
+
+----
+
 
 
 
