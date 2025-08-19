@@ -202,6 +202,13 @@ Summary of the Data The graph tracks the market share of several major video gam
 ![globalms](visuals/japms.png "Top 3 Companies by Market Share")
 The European market was particularly tough for Nintendo. While they had a brief peak, they were consistently outperformed by EA and Ubisoft. The graph shows EA's market share soaring in Europe from 2014-2016, reaching over 25% while Nintendo's dropped to single digits.
 
+### Visual (Genre Comparison)
+![genre](visuals/genre.png "Genre Mix")
+* The first graph, "Top 3 Global Genres by Sales," shows that globally, the top-selling genres are Action, Sports, and Shooter. This is a significant point, as the global gaming market is heavily driven by these genres.
+
+* The second graph, "Top 3 Nintendo Genres by Sales," reveals that Nintendo's top-selling genres are Role-Playing, Platform, and Action. Noticeably absent from Nintendo's top three is the "Shooter" genre, which is a major driver of sales globally. While Action is a common genre for both, the other top genres are unique to each market. This visual perfectly illustrates Nintendo's niche.
+
+
 ## Recommendations
 1. Strengthen Third-Party and Indie Developer Relationships: The data shows that companies like EA and Activision maintained or increased their market share while Nintendo struggled. These companies' multi-platform blockbusters drove sales on competing consoles.
 * Streamline development: Make it easier for third-party studios to port their games to Nintendo's hardware.
