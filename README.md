@@ -367,6 +367,6 @@ In this hypothetical scenario, the predictions suggest that a new Wii-U Platform
 Author: Kwasi Dankwa
 Role: Business Analyst
 Nintendo (Portfolio Project)
-Tech: SQL(PostGresAdmin), Python (pandas, scikit-learn), Jupyter, Views, Tableau
+Tech: SQL(PostGresAdmin), Python (pandas, scikit-learn), Jupyter, Views, Powerpoint
 Business Window: 2010–2016
 ```
