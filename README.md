@@ -345,6 +345,42 @@ In this hypothetical scenario, the predictions suggest that a new Wii-U Platform
 
 ----
 
+### 📊 [`Google Slides Presentation`](https://docs.google.com/presentation/d/11p2beyl6iVpxHK55GgNIIzpLWRbHZcCw/edit?usp=sharing&ouid=110969619922033106176&rtpof=true&sd=true)
+
+### How to Run (⚙️ Requirements)
+
+1. Install dependencies (recommended via virtual environment):
+```
+pip install pandas numpy matplotlib seaborn scikit-learn jupyter
+```
+
+2. Clone the repository (or download files).
+
+```
+git clone https://github.com/Kwasi-Dankwa/Game-sales.git
+cd Game-sales
+```
+
+3. Open Jupyter Notebook:
+```
+jupyter notebook
+```
+
+4. Run the notebook
+
+* Execute all cells (Kernel > Restart & Run All).
+
+Outputs include:
+
+* Market share tables & charts (Nintendo vs competitors).
+
+* Genre-level performance charts.
+
+* Random Forest prediction results.
+  
+
+
+
 
 
 
